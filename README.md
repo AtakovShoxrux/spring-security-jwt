@@ -2,7 +2,7 @@
 
 ![Java](https://img.shields.io/badge/Java-17-orange?style=for-the-badge&logo=java)
 ![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.5.5-green?style=for-the-badge&logo=springboot)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue?style=for-the-badge&logo=postgresql)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-17.4-blue?style=for-the-badge&logo=postgresql)
 ![JWT](https://img.shields.io/badge/JWT-JSON_Web_Token-purple?style=for-the-badge&logo=jsonwebtokens)
 ![Status](https://img.shields.io/badge/Status-Development-yellow?style=for-the-badge)
 

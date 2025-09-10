@@ -9,7 +9,17 @@ public enum ErrorCode {
   USER_NOT_FOUND("USER_NOT_FOUND", "User not found with this id %s",
       HttpStatus.NOT_FOUND),
   CHANGE_PASSWORD_MISMATCH(
-      "CHANGE_PASSWORD_MISMATCH", "Passwords do not match with each other %s" , HttpStatus.NOT_ACCEPTABLE);
+      "CHANGE_PASSWORD_MISMATCH", "Passwords do not match with each other %s",
+      HttpStatus.NOT_ACCEPTABLE),
+  PASSWORD_MISMATCH("PASSWORD_MISMATCH",
+      "Passwords do not match with each other %s",
+      HttpStatus.BAD_REQUEST),
+  ACCOUNT_ALREADY_DEACTIVATED(
+      "ACCOUNT_ALREADY_DEACTIVATED", "Account already deactivated",
+      HttpStatus.ALREADY_REPORTED),
+  ACCOUNT_ALREADY_ACTIVATED(
+      "ACCOUNT_ALREADY_ACTIVATED", "Account already activated",
+      HttpStatus.ALREADY_REPORTED);
 
   private final String code;
 

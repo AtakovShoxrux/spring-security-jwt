@@ -14,7 +14,7 @@ public interface UserMapper {
 
   @Mapping(target = "firstName", source = "firstName")
   @Mapping(target = "lastName", source = "lastName")
-  @Mapping(target = "dateOfBirth", source = "birthDate")
+  @Mapping(target = "dateOfBirth", source = "dateOfBirth")
   @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
   void mergeUserInfo(@MappingTarget UserEntity savedUser, ProfileUpdateRequestDto requestDto);
 }
