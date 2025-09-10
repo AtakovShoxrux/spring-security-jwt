@@ -18,5 +18,5 @@ public class ProfileUpdateRequestDto {
 
   private String lastName;
 
-  private LocalDate birthDate;
+  private LocalDate dateOfBirth;
 }

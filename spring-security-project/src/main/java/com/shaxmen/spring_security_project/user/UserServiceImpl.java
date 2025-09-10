@@ -44,16 +44,44 @@ public class UserServiceImpl implements UserService {
     if (!requestDto.getNewPassword().equals(requestDto.getConfirmNewPassword())) {
       throw new BusinessException(ErrorCode.CHANGE_PASSWORD_MISMATCH);
     }
+
+    final UserEntity savedUser = this.userRepository.findById(userId)
+        .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND, userId));
+
+    if (!this.passwordEncoder.matches(requestDto.getCurrentPassword(), savedUser.getPassword())) {
+      throw new BusinessException(ErrorCode.PASSWORD_MISMATCH);
+    }
+
+    final String encodedPassword = this.passwordEncoder.encode(requestDto.getNewPassword());
+    savedUser.setPassword(encodedPassword);
+    this.userRepository.save(savedUser);
+
   }
 
   @Override
   public void deactivateAccount(String userId) {
+    final UserEntity savedUser = this.userRepository.findById(userId)
+        .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND, userId));
 
+    if (!savedUser.isEnabled()) {
+      throw new BusinessException(ErrorCode.ACCOUNT_ALREADY_DEACTIVATED);
+    }
+
+    savedUser.setEnabled(false);
+    this.userRepository.save(savedUser);
   }
 
   @Override
   public void reactivateAccount(String userId) {
+    final UserEntity savedUser = this.userRepository.findById(userId)
+        .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND, userId));
 
+    if (savedUser.isEnabled()) {
+      throw new BusinessException(ErrorCode.ACCOUNT_ALREADY_ACTIVATED);
+    }
+
+    savedUser.setEnabled(true);
+    this.userRepository.save(savedUser);
   }
 
   @Override
