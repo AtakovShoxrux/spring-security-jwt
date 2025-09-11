@@ -16,5 +16,9 @@ spring:
       hibernate:
         format_sql: true
 
+jwt:
+  access-token-expiration: 36000000
+  refresh-token-expiration: 2592000000
 app:
   security:
+
