@@ -33,3 +33,6 @@ build/
 .vscode/
 ### Environment variables file should be ingored to decrease the risk of leaking the sensitive informatins! ###
 .env
+
+### RSA Keys ###
+/spring-security-project/src/main/resources/keys/local-only/**
