@@ -1,5 +1,7 @@
 package com.shaxmen.spring_security_project.security;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import java.security.PrivateKey;
 import java.security.PublicKey;
@@ -18,7 +20,6 @@ public class JwtService {
   private Long accessTokeExpiration;
   @Value("${jwt.refresh-token-expiration}")
   private Long refreshTokenExpiration;
-
 
   public JwtService() throws Exception {
     this.privateKey = KeyUtils.loadPrivateKey("keys/local-only/private-key.pem");
@@ -43,5 +44,42 @@ public class JwtService {
         .expiration(new Date(System.currentTimeMillis() + tokenExpiration))
         .signWith(this.privateKey)
         .compact();
+  }
+
+  public Boolean isValidToken(final String token, String expectedUsername) {
+    final String username = extractUserName(token);
+    return username.equals(expectedUsername) && !isTokenExpired(token);
+  }
+
+  private Boolean isTokenExpired(String token) {
+    return extractClaims(token).getExpiration().before(new Date());
+  }
+
+  public String extractUserName(String token) {
+    return extractClaims(token).getSubject();
+  }
+
+  private Claims extractClaims(String token) {
+    try {
+      return Jwts.parser()
+          .verifyWith(this.publicKey)
+          .build()
+          .parseSignedClaims(token)
+          .getPayload();
+    } catch (final JwtException e) {
+      throw new RuntimeException("Invalid JWT token", e);
+    }
+  }
+
+  public String refreshAccessToken(final String refreshToken) {
+    final Claims claims = extractClaims(refreshToken);
+    if (!"REFRESH_TOKEN".equals(claims.get(TOKEN_TYPE))) {
+      throw new RuntimeException("Invalid token type");
+    }
+    if (isTokenExpired(refreshToken)) {
+      throw new RuntimeException("Token is expired");
+    }
+    final String username = claims.getSubject();
+    return generateAccessToken(username);
   }
 }
