@@ -12,7 +12,7 @@ public class KeyUtils {
   private KeyUtils() {
   }
 
-  // Keys shouldn't be storing locally in our source code but we need to use Vault, AWS, Secrets manager I did store the private key !!!
+  // Keys shouldn't be storing locally in our source code but we need to use Vault, AWS, Secrets manager that's why I did store the private key !!!
   public static PrivateKey loadPrivateKey(final String filePath) throws Exception {
     final String key = readKeyFromResource(filePath).replace("-----BEGIN PRIVATE KEY-----", "")
         .replace("-----END PRIVATE KEY-----", "")
