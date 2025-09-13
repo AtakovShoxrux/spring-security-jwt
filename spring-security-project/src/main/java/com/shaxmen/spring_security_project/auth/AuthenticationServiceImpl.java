@@ -73,11 +73,23 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     user.setRoles(roles);
     log.debug("Saving user {}", user.getUsername());
     this.userRepository.save(user);
+
+    final List<UserEntity> users = new ArrayList<>();
+    users.add(user);
+    userRole.setUsers(users);
+    this.roleRepository.save(userRole);
   }
 
   @Override
   public AuthenticationResponseDto refresh(RefreshTokenRequestDto requestDto) {
-    return null;
+    final String newAccessToken = this.jwtService.generateAccessToken(requestDto.getRefreshToken());
+    final String tokenType = "Bearer";
+    return AuthenticationResponseDto
+        .builder()
+        .accessToken(newAccessToken)
+        .refreshToken(requestDto.getRefreshToken())
+        .tokenType(tokenType)
+        .build();
   }
 
   private void checkUserEmail(String email) {
