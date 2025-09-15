@@ -26,7 +26,19 @@ public enum ErrorCode {
       HttpStatus.BAD_REQUEST),
   PHONE_NUMBER_ALREADY_EXISTS(
       "PHONE_NUMBER_ALREADY_EXISTS", "This phone number already exists",
-      HttpStatus.BAD_REQUEST);
+      HttpStatus.BAD_REQUEST),
+  USER_DISABLED(
+      "USER_DISABLED", "Account is disabled",
+      HttpStatus.UNAUTHORIZED),
+  BAD_CREDENTIALS(
+      "BAD_CREDENTIALS", "Username and / or password is incorrect!",
+      HttpStatus.NOT_FOUND),
+  USERNAME_NOT_FOUND(
+      "USERNAME_NOT_FOUND", "Username not found!",
+      HttpStatus.NOT_FOUND),
+  INTERNAL_EXCEPTION(
+      "INTERNAL_EXCEPTION", "Unexpected error occurred!",
+      HttpStatus.INTERNAL_SERVER_ERROR);
 
   private final String code;
 

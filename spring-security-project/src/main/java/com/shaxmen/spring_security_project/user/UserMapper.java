@@ -24,7 +24,7 @@ public interface UserMapper {
   @Mapping(target = "email", source = "email")
   @Mapping(target = "phoneNumber", source = "phoneNumber")
   @Mapping(target = "password", source = "password")
-  @Mapping(target = "enabled", constant = "true") // This is a default version of the user if you want to do some verifying before it you should set it to false (Phone verifying or Email one)
+  @Mapping(target = "enabled", constant = "true") // This is a default version of the user if you want to do some verifying before it, you should set it to false (Phone verifying or Email one)
   @Mapping(target = "locked", constant = "false")
   @Mapping(target = "credentialsExpired", constant = "false")
   @Mapping(target = "emailVerified", constant = "false")
