@@ -9,7 +9,6 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.springframework.stereotype.Service;
 
-@Service
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 

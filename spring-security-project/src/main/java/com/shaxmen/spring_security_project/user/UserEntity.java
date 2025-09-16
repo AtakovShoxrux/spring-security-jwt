@@ -132,11 +132,11 @@ public class UserEntity implements UserDetails {
 
   @Override
   public boolean isCredentialsNonExpired() {
-    return !this.credentialsExpired;
+    return true;
   }
 
   @Override
   public boolean isEnabled() {
-    return !this.enabled;
+    return this.enabled;
   }
 }

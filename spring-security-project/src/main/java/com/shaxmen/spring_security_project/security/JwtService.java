@@ -3,6 +3,7 @@ package com.shaxmen.spring_security_project.security;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
+import jakarta.annotation.PostConstruct;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.util.Date;
@@ -14,16 +15,21 @@ import org.springframework.stereotype.Service;
 public class JwtService {
 
   private static final String TOKEN_TYPE = "token_type";
-  private final PrivateKey privateKey;
-  private final PublicKey publicKey;
+  private PrivateKey privateKey;
+  private PublicKey publicKey;
   @Value("${jwt.access-token-expiration}")
   private Long accessTokeExpiration;
   @Value("${jwt.refresh-token-expiration}")
   private Long refreshTokenExpiration;
 
-  public JwtService() throws Exception {
-    this.privateKey = KeyUtils.loadPrivateKey("keys/local-only/private-key.pem");
-    this.publicKey = KeyUtils.loadPublicKey("keys/local-only/public-key.pem");
+  @PostConstruct
+  public void initKeys() {
+    try {
+      this.privateKey = KeyUtils.loadPrivateKey("keys/local-only/private-key.pem");
+      this.publicKey = KeyUtils.loadPublicKey("keys/local-only/public-key.pem");
+    } catch (Exception e) {
+      throw new IllegalStateException("Failed to load RSA keys", e);
+    }
   }
 
   public String generateAccessToken(final String username) {
