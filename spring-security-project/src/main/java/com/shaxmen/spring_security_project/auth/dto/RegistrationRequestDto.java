@@ -56,7 +56,7 @@ public class RegistrationRequestDto {
       message = "VALIDATION.REGISTRATION.PASSWORD.SIZE"
   )
   @Pattern(
-      regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*\\W).$",
+      regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*\\W).{8,35}$",
       message = "VALIDATION.REGISTRATION.PASSWORD.WEAK"
   )
   @Schema(example = "<PASSWORD>")
