@@ -63,22 +63,22 @@ public class UserEntity implements UserDetails {
   private LocalDate dateOfBirth;
 
   @Column(name = "is_enabled")
-  private Boolean enabled;
+  private boolean enabled;
 
   @Column(name = "is_account_locked")
-  private Boolean locked;
+  private boolean locked;
 
   @Column(name = "is_credentials_expired")
-  private Boolean expired;
+  private boolean expired;
 
   @Column(name = "is_email_verified")
-  private Boolean emailVerified;
+  private boolean emailVerified;
 
   @Column(name = "is_phone_number_verified")
-  private Boolean phoneNumberVerified;
+  private boolean phoneNumberVerified;
 
   @Column(name = "credentials_expired")
-  private Boolean credentialsExpired;
+  private boolean credentialsExpired;
 
   @CreatedDate
   @Column(name = "created_at", updatable = false, nullable = false)
