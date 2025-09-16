@@ -33,7 +33,6 @@ public class SecurityConfig {
       "/swagger-ui.html",
   };
 
-
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     return http
