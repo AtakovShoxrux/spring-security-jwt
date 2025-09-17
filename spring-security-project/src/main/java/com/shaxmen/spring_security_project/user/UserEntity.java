@@ -92,6 +92,9 @@ public class UserEntity implements UserDetails {
   )
   private List<RoleEntity> roles;
 
+  @Column(name = "tenant_id")
+  private String tenantId;
+
   public UserEntity() {
   }
 
@@ -111,7 +114,8 @@ public class UserEntity implements UserDetails {
       boolean credentialsExpired,
       LocalDateTime createdAt,
       LocalDateTime updatedAt,
-      List<RoleEntity> roles
+      List<RoleEntity> roles,
+      String tenantId
   ) {
     this.id = id;
     this.firstName = firstName;
@@ -129,6 +133,7 @@ public class UserEntity implements UserDetails {
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
     this.roles = roles;
+    this.tenantId = tenantId;
   }
 
   public String getId() {
@@ -249,6 +254,14 @@ public class UserEntity implements UserDetails {
 
   public void setRoles(List<RoleEntity> roles) {
     this.roles = roles;
+  }
+
+  public String getTenantId() {
+    return tenantId;
+  }
+
+  public void setTenantId(String tenantId) {
+    this.tenantId = tenantId;
   }
 
   @Override

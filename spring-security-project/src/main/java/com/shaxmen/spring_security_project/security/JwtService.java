@@ -25,20 +25,26 @@ public class JwtService {
   @PostConstruct
   public void initKeys() {
     try {
-      this.privateKey = KeyUtils.loadPrivateKey("keys/local-only/private-key.pem");
-      this.publicKey = KeyUtils.loadPublicKey("keys/local-only/public-key.pem");
+      this.privateKey = KeyUtils.loadPrivateKey("keys/local-only/private_key.pem");
+      this.publicKey = KeyUtils.loadPublicKey("keys/local-only/public_key.pem");
     } catch (Exception e) {
       throw new IllegalStateException("Failed to load RSA keys", e);
     }
   }
 
-  public String generateAccessToken(final String username) {
-    final Map<String, Object> claims = Map.of(TOKEN_TYPE, "ACCESS_TOKEN");
+  public String generateAccessToken(final String username, final String tenantId) {
+    final Map<String, Object> claims = Map.of(
+        TOKEN_TYPE, "ACCESS_TOKEN",
+        "tenant_id", tenantId
+    );
     return buildToken(username, claims, this.accessTokeExpiration);
   }
 
-  public String generateRefreshToken(final String username) {
-    final Map<String, Object> claims = Map.of(TOKEN_TYPE, "REFRESH_TOKEN");
+  public String generateRefreshToken(final String username, final String tenantId) {
+    final Map<String, Object> claims = Map.of(
+        TOKEN_TYPE, "REFRESH_TOKEN",
+        "tenant_id", tenantId
+    );
     return buildToken(username, claims, this.refreshTokenExpiration);
   }
 
@@ -65,6 +71,10 @@ public class JwtService {
     return extractClaims(token).getSubject();
   }
 
+  public String extractTenantId(String token) {
+    return extractClaims(token).get("tenant_id", String.class);
+  }
+
   private Claims extractClaims(String token) {
     try {
       return Jwts.parser()
@@ -86,6 +96,7 @@ public class JwtService {
       throw new RuntimeException("Token is expired");
     }
     final String username = claims.getSubject();
-    return generateAccessToken(username);
+    final String tenantId = claims.get("tenant_id", String.class);
+    return generateAccessToken(username, tenantId);
   }
 }

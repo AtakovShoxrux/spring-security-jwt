@@ -34,7 +34,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
   private final UserRepository userRepository;
   private final RoleRepository roleRepository;
   private final UserMapper userMapper;
-  private final PasswordEncoder  passwordEncoder;
+  private final PasswordEncoder passwordEncoder;
 
   @Override
   public AuthenticationResponseDto login(AuthenticationRequestDto requestDto) {
@@ -46,8 +46,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     );
 
     final UserEntity user = (UserEntity) auth.getPrincipal();
-    final String accessToken = this.jwtService.generateAccessToken(user.getUsername());
-    final String refreshToken = this.jwtService.generateRefreshToken(user.getUsername());
+    final String accessToken = this.jwtService.generateAccessToken(user.getUsername(),
+        user.getTenantId());
+    final String refreshToken = this.jwtService.generateRefreshToken(user.getUsername(),
+        user.getTenantId());
     final String tokenType = "Bearer";
     return AuthenticationResponseDto
         .builder()
@@ -72,6 +74,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     roles.add(userRole);
 
     final UserEntity user = this.userMapper.toUser(requestDto);
+    user.setTenantId(java.util.UUID.randomUUID().toString());
     user.setPassword(passwordEncoder.encode(requestDto.getPassword()));
     user.setRoles(roles);
     log.debug("Saving user {}", user.getUsername());
@@ -85,13 +88,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
   @Override
   public AuthenticationResponseDto refresh(RefreshTokenRequestDto requestDto) {
-    final String newAccessToken = this.jwtService.generateAccessToken(requestDto.getRefreshToken());
-    final String tokenType = "Bearer";
-    return AuthenticationResponseDto
-        .builder()
+    final String username = this.jwtService.extractUserName(requestDto.getRefreshToken());
+    final String tenantId = this.jwtService.extractTenantId(requestDto.getRefreshToken());
+    final String newAccessToken = this.jwtService.generateAccessToken(username, tenantId);
+    return AuthenticationResponseDto.builder()
         .accessToken(newAccessToken)
         .refreshToken(requestDto.getRefreshToken())
-        .tokenType(tokenType)
+        .tokenType("Bearer")
         .build();
   }
 
