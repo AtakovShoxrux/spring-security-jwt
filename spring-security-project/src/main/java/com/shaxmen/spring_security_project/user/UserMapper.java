@@ -7,10 +7,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
-import org.springframework.stereotype.Service;
+import org.mapstruct.ReportingPolicy;
 
-@Service
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface UserMapper {
 
   @Mapping(target = "firstName", source = "firstName")
@@ -24,9 +23,9 @@ public interface UserMapper {
   @Mapping(target = "email", source = "email")
   @Mapping(target = "phoneNumber", source = "phoneNumber")
   @Mapping(target = "password", source = "password")
-  @Mapping(target = "enabled", constant = "true") // This is a default version of the user if you want to do some verifying before it, you should set it to false (Phone verifying or Email one)
+  @Mapping(target = "enabled", constant = "true")
   @Mapping(target = "locked", constant = "false")
-  @Mapping(target = "credentialsExpired", constant = "false")
+  @Mapping(target = "expired", constant = "false")
   @Mapping(target = "emailVerified", constant = "false")
   @Mapping(target = "phoneNumberVerified", constant = "false")
   UserEntity toUser(RegistrationRequestDto requestDto);

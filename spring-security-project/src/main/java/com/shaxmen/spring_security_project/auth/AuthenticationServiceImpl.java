@@ -21,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -33,6 +34,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
   private final UserRepository userRepository;
   private final RoleRepository roleRepository;
   private final UserMapper userMapper;
+  private final PasswordEncoder  passwordEncoder;
 
   @Override
   public AuthenticationResponseDto login(AuthenticationRequestDto requestDto) {
@@ -70,6 +72,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     roles.add(userRole);
 
     final UserEntity user = this.userMapper.toUser(requestDto);
+    user.setPassword(passwordEncoder.encode(requestDto.getPassword()));
     user.setRoles(roles);
     log.debug("Saving user {}", user.getUsername());
     this.userRepository.save(user);

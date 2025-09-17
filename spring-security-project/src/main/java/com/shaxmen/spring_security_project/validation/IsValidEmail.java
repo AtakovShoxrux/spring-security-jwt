@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 @Constraint(validatedBy = EmailDomainValidation.class)
 public @interface IsValidEmail {
 
-  String massage() default "Invalid emails are not allowed";
+  String message() default "Invalid emails are not allowed";
 
   Class<?>[] groups() default {};
 

@@ -13,7 +13,7 @@ public enum ErrorCode {
       "CHANGE_PASSWORD_MISMATCH", "Passwords do not match with each other %s",
       HttpStatus.NOT_ACCEPTABLE),
   PASSWORD_MISMATCH(
-      "PASSWORD_MISMATCH", "Passwords do not match with each other %s",
+      "PASSWORD_MISMATCH", "Passwords do not match with each other",
       HttpStatus.NOT_ACCEPTABLE),
   ACCOUNT_ALREADY_DEACTIVATED(
       "ACCOUNT_ALREADY_DEACTIVATED", "Account already deactivated",

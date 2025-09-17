@@ -5,6 +5,7 @@ import java.security.KeyFactory;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 
 public class KeyUtils {
@@ -20,7 +21,7 @@ public class KeyUtils {
 
     final byte[] decoded = Base64.getDecoder().decode(key);
     final PKCS8EncodedKeySpec spec = new PKCS8EncodedKeySpec(decoded);
-    return KeyFactory.getInstance("PSA").generatePrivate(spec);
+    return KeyFactory.getInstance("RSA").generatePrivate(spec);
   }
 
   public static PublicKey loadPublicKey(final String filePath) throws Exception {
@@ -29,8 +30,8 @@ public class KeyUtils {
         .replaceAll("\\s+", "");
 
     final byte[] decoded = Base64.getDecoder().decode(key);
-    final PKCS8EncodedKeySpec spec = new PKCS8EncodedKeySpec(decoded);
-    return KeyFactory.getInstance("PSA").generatePublic(spec);
+    final X509EncodedKeySpec spec = new X509EncodedKeySpec(decoded);
+    return KeyFactory.getInstance("RSA").generatePublic(spec);
   }
 
   private static String readKeyFromResource(String filePath) throws Exception {

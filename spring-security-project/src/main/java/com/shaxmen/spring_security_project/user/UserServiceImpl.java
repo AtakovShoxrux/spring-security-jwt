@@ -17,9 +17,7 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
 
   private final UserRepository userRepository;
-
   private final PasswordEncoder passwordEncoder;
-
   private final UserMapper userMapper;
 
   @Override
@@ -55,7 +53,6 @@ public class UserServiceImpl implements UserService {
     final String encodedPassword = this.passwordEncoder.encode(requestDto.getNewPassword());
     savedUser.setPassword(encodedPassword);
     this.userRepository.save(savedUser);
-
   }
 
   @Override
