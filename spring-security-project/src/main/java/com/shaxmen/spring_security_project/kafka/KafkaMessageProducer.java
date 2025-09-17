@@ -1,25 +1,17 @@
 package com.shaxmen.spring_security_project.kafka;
 
+import com.shaxmen.spring_security_project.kafka.dto.AdditionReconciliationDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.kafka.support.KafkaHeaders;
-import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class KafkaMessageProducer<T> {
+@RequiredArgsConstructor
+public class KafkaMessageProducer {
 
-  private final KafkaTemplate<String, T> kafkaTemplate;
+  private final KafkaTemplate<String, AdditionReconciliationDto> kafkaTemplate;
 
-  public KafkaMessageProducer(KafkaTemplate<String, T> kafkaTemplate) {
-    this.kafkaTemplate = kafkaTemplate;
-  }
-
-  public void sendMessage(String topic, String tenantId, T message) {
-    kafkaTemplate.send(
-        MessageBuilder.withPayload(message)
-            .setHeader(KafkaHeaders.TOPIC, topic)
-            .setHeader("tenantId", tenantId)
-            .build()
-    );
+  public void sendAdditionMessage(AdditionReconciliationDto dto) {
+    kafkaTemplate.send(KafkaConstants.ADDITION_RECONCILIATION_TOPIC, dto);
   }
 }

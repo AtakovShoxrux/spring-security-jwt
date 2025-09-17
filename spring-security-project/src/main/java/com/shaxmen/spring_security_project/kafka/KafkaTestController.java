@@ -2,18 +2,21 @@ package com.shaxmen.spring_security_project.kafka;
 
 import com.shaxmen.spring_security_project.kafka.dto.AdditionReconciliationDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/kafka")
 @RequiredArgsConstructor
 public class KafkaTestController {
 
-    private final KafkaMessageProducer producer;
+  private final KafkaMessageProducer producer;
 
-    @PostMapping("/send")
-    public String sendMessage(@RequestBody AdditionReconciliationDto dto) {
-        producer.sendAdditionMessage(dto);
-        return "Message sent!";
-    }
+  @PostMapping("/send")
+  public String sendMessage(@RequestBody AdditionReconciliationDto dto) {
+    producer.sendAdditionMessage(dto);
+    return "Message sent!";
+  }
 }
