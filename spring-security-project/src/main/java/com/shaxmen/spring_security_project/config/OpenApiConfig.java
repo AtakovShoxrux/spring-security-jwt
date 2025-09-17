@@ -11,33 +11,35 @@ import io.swagger.v3.oas.annotations.servers.Server;
 
 @OpenAPIDefinition(
     info = @Info(
+        title = "Spring Security API",
+        version = "1.0.0",
+        description = "API documentation for authentication and JWT-based security.",
         contact = @Contact(
-            name = "Spring security JWT asymmetric Encryption demo",
+            name = "Spring Security JWT Demo",
             email = "morningstar@gmail.com",
-            url = "https://localhost:8080"
+            url = "http://localhost:8080" // ✅ Updated to HTTP
         ),
-        description = "Lorem",
-        title = "OpenApi Specification",
-        version = "6.9",
         license = @License(
             name = "License name",
-            url = "https://localhost:8080/license"
+            url = "http://localhost:8080/license" // ✅ Updated to HTTP
         ),
-        termsOfService = "https://localhost:8080/terms"
+        termsOfService = "http://localhost:8080/terms" // ✅ Updated to HTTP
     ),
-    servers = @Server(
-        description = "Development server",
-        url = "https://localhost:8080"
-    )
+    servers = {
+        @Server(
+            description = "Development Server (HTTP)",
+            url = "http://localhost:8080" // ✅ Updated to HTTP
+        )
+    }
 )
 @SecurityScheme(
     name = "bearerAuth",
-    description = "JWT auth description",
+    description = "JWT Bearer authentication",
     scheme = "bearer",
     type = SecuritySchemeType.HTTP,
     bearerFormat = "JWT",
     in = SecuritySchemeIn.HEADER
 )
 public class OpenApiConfig {
-
+  // No additional code required here — configuration is annotation-based
 }
