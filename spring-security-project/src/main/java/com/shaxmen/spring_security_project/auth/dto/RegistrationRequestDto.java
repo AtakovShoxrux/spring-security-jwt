@@ -31,7 +31,7 @@ public class RegistrationRequestDto {
 
   @NotBlank(message = "VALIDATION.REGISTRATION.EMAIL.BLANK")
   @Email(message = "VALIDATION.REGISTRATION.EMAIL.FORMAT")
-  @IsValidEmail(message = "VALIDATION.REGISTRATION.EMAIL.IS_VALID_EMAIL")
+  @IsValidEmail(message = "VALIDATION.REGISTRATION.EMAIL.DISPOSABLE")
   @Schema(example = "morningstar@gmail.com")
   private String email;
 

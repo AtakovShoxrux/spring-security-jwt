@@ -21,7 +21,7 @@ jwt:
   refresh-token-expiration: 2592000000
 
 security:
-  invalid-emails: 0-mail.com,027168.com,0815.ru,0815.ry,0815.su,0845.ru,0box.eu,0clickemail.com,0n0ff.net,0nelce.com,0v.ro,0w.ro,0wnd.net,0wnd.org,0x207.info,1-8.biz,1-tm.com,10-minute-mail.com,10minutemail.de,10minutemail.com,10minutemail.net,10mail.com,10mail.org,10minutesmail.com,12minutemail.com,1secmail.com,1usemail.com,24hourmail.com,20minutemail.com,20mail.eu,20mail.it,30minutemail.com
+  invalid-emails: 10minutemail,20minutemail,33mail,5ymail,anonbox,guerrillamail,mailinator,maildrop,mailnesia,moakt,my10minutemail,throwawaymail,trashmail,temp-mail,tempmail,truemail,yopmail
 
 springdoc:
   swagger-ui:

@@ -25,9 +25,7 @@ public class EmailDomainValidation implements ConstraintValidator<IsValidEmail, 
     if (email == null || !email.contains("@")) {
       return true;
     }
-    final int atIndex = email.indexOf("@") + 1;
-    final int dotIndex = email.lastIndexOf(".");
-    final String domain = email.substring(atIndex, dotIndex);
+    final String domain = email.substring(email.indexOf("@") + 1).toLowerCase();
     return !this.blocked.contains(domain);
   }
 }
