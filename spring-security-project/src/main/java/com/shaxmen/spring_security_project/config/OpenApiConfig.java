@@ -22,18 +22,18 @@ import org.springframework.context.annotation.Bean;
         contact = @Contact(
             name = "Spring Security JWT Demo",
             email = "morningstar@gmail.com",
-            url = "http://localhost:8080" // ✅ Updated to HTTP
+            url = "http://localhost:8080"
         ),
         license = @License(
             name = "License name",
-            url = "http://localhost:8080/license" // ✅ Updated to HTTP
+            url = "http://localhost:8080/license"
         ),
-        termsOfService = "http://localhost:8080/terms" // ✅ Updated to HTTP
+        termsOfService = "http://localhost:8080/terms"
     ),
     servers = {
         @Server(
             description = "Development Server (HTTP)",
-            url = "http://localhost:8080" // ✅ Updated to HTTP
+            url = "http://localhost:8080"
         )
     }
 )
@@ -46,6 +46,7 @@ import org.springframework.context.annotation.Bean;
     in = SecuritySchemeIn.HEADER
 )
 public class OpenApiConfig {
+
   @Bean
   public OpenAPI customOpenApi() {
     return new OpenAPI()
